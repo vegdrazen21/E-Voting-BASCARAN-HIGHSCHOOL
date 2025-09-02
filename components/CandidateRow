@@ -1,0 +1,37 @@
+import React from "react";
+
+/*
+ Props:
+  candidate: { id, name, age, gender, photo }
+  selected: boolean
+  onSelect: fn
+  onOpenDetails: fn
+*/
+export default function CandidateRow({ candidate, selected, onSelect, onOpenDetails }){
+  return (
+    <div className="candidate-row">
+      <img
+        alt={candidate.name}
+        className="avatar"
+        src={candidate.photo}
+        onClick={onOpenDetails}
+        style={{ cursor: "pointer" }}
+      />
+      <div onClick={onOpenDetails} style={{cursor:"pointer"}}>
+        <div className="c-name">{candidate.name}</div>
+        <div className="c-meta">{candidate.gender}, {candidate.age}</div>
+      </div>
+
+      <div className="radio-col">
+        <input
+          type="radio"
+          name="candidate-radio" /* actual grouping is handled in parent by setting name dynamically */
+          checked={selected}
+          onChange={onSelect}
+          aria-label={`Select ${candidate.name}`}
+          style={{ width:20, height:20 }}
+        />
+      </div>
+    </div>
+  );
+}
