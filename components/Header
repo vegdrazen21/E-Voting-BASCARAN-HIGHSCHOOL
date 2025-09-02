@@ -1,0 +1,26 @@
+import React, { useEffect, useState } from "react";
+
+export default function Header({ electionTitle, endDate }){
+  const [nowStr, setNowStr] = useState(() => formatNow());
+
+  useEffect(()=>{
+    const t = setInterval(() => setNowStr(formatNow()), 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  function formatNow(){
+    const d = new Date();
+    // show as e.g. 12:03:45 PM
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  }
+
+  return (
+    <div className="header-row">
+      <div className="title">{electionTitle}</div>
+      <div className="timestamp">
+        <div>{nowStr}</div>
+        <div style={{fontSize: 13, color: "var(--muted)"}}>Ends on {endDate}</div>
+      </div>
+    </div>
+  );
+}
