@@ -1,0 +1,82 @@
+import React, { useState } from "react";
+import CandidateRow from "./CandidateRow";
+import CandidateModal from "./CandidateModal";
+import ConfirmModal from "./ConfirmModal";
+
+/*
+  Props:
+    positions: array of { id, title, voteNumber, candidates[] }
+    selectedVotes: { positionId: candidateId }
+    onChange: fn(newSelectedVotes)
+    onSubmit: fn()
+    disabled: boolean
+*/
+export default function VotingPage({ positions, selectedVotes, onChange, onSubmit, disabled=false }){
+  const [modalCandidate, setModalCandidate] = useState(null);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+
+  const handleSelect = (positionId, candidateId) => {
+    onChange({ ...selectedVotes, [positionId]: candidateId });
+  };
+
+  const openConfirm = () => {
+    // optional validation: ensure at least one vote or all positions chosen
+    setConfirmOpen(true);
+  };
+
+  return (
+    <>
+      {positions.map(pos => (
+        <div key={pos.id} className="position-block">
+          <div className="position-title">
+            <div>{pos.title} <span style={{fontWeight:600, color:"var(--muted)", fontSize:14}}> (Vote {pos.voteNumber})</span></div>
+            <div className="instructions">1 candidate only · Click photo for details</div>
+          </div>
+
+          <div>
+            {pos.candidates.map(c => (
+              <div key={c.id} style={{marginBottom:6}}>
+                <CandidateRow
+                  candidate={c}
+                  selected={selectedVotes[pos.id] === c.id}
+                  onSelect={() => handleSelect(pos.id, c.id)}
+                  onOpenDetails={() => setModalCandidate(c)}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div style={{marginTop: 8}}>
+        <button
+          className="submit-btn"
+          onClick={openConfirm}
+          disabled={disabled}
+          title={disabled ? "You already submitted" : "Submit your vote"}
+        >
+          Submit Vote
+        </button>
+      </div>
+
+      {modalCandidate && (
+        <CandidateModal
+          candidate={modalCandidate}
+          onClose={() => setModalCandidate(null)}
+        />
+      )}
+
+      {confirmOpen && (
+        <ConfirmModal
+          selections={selectedVotes}
+          positions={positions}
+          onClose={() => setConfirmOpen(false)}
+          onConfirm={() => {
+            setConfirmOpen(false);
+            onSubmit();
+          }}
+        />
+      )}
+    </>
+  );
+}
