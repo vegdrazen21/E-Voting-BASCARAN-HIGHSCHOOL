@@ -1,0 +1,95 @@
+import React, { useState } from "react";
+import "../styles/LoginPage.css";
+
+export default function LoginPage({ onLogin }) {
+  const [form, setForm] = useState({
+    name: "",
+    age: "",
+    lrn: "",
+    token: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Simple validation (later can connect to Firebase/Backend)
+    if (form.lrn.length !== 12) {
+      alert("LRN must be 12 digits.");
+      return;
+    }
+    if (form.token.length !== 6) {
+      alert("Token must be 6 digits.");
+      return;
+    }
+
+    onLogin?.(form); // Pass data back up
+  };
+
+  return (
+    <div className="login-container">
+      {/* Background */}
+      <div className="background"></div>
+
+      <div className="login-content">
+        {/* Left: Logo */}
+        <div className="login-left">
+          <img
+            src="https://via.placeholder.com/200x200.png?text=School+Logo"
+            alt="School Logo"
+            className="school-logo"
+          />
+        </div>
+
+        {/* Right: Form */}
+        <div className="login-right">
+          <form className="login-form" onSubmit={handleSubmit}>
+            <h2 className="form-title">Student Login</h2>
+
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              value={form.name}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="number"
+              name="age"
+              placeholder="Age"
+              value={form.age}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="text"
+              name="lrn"
+              placeholder="LRN (12 digits)"
+              value={form.lrn}
+              onChange={handleChange}
+              required
+              maxLength={12}
+            />
+            <input
+              type="text"
+              name="token"
+              placeholder="Token (6 digits)"
+              value={form.token}
+              onChange={handleChange}
+              required
+              maxLength={6}
+            />
+
+            <button type="submit" className="login-btn">
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
