@@ -1,0 +1,118 @@
+:root{
+  --brand-blue: #2f6fb6; /* primary blue */
+  --brand-blue-dark: #244f8a;
+  --light-gray: #f3f5f7;
+  --muted: #6b7280;
+}
+
+body {
+  background: var(--light-gray);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #0f1724;
+}
+
+/* container card */
+.app-card {
+  max-width: 800px;
+  margin: 36px auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(15,23,36,0.06);
+  padding: 28px;
+}
+
+/* header */
+.header-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom: 18px;
+}
+.title {
+  font-weight:700;
+  color: var(--brand-blue-dark);
+  font-size: 28px;
+}
+.timestamp {
+  color: var(--muted);
+  text-align:right;
+  font-size: 14px;
+}
+
+/* position card */
+.position-block {
+  border-radius: 10px;
+  background: #fbfdff;
+  padding: 18px;
+  margin-bottom: 18px;
+  border: 1px solid #eef2f6;
+}
+.position-title {
+  font-size: 20px;
+  font-weight:700;
+  color: var(--brand-blue);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom: 12px;
+}
+.instructions {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* candidate row */
+.candidate-row {
+  display:flex;
+  align-items:center;
+  gap: 12px;
+  padding: 12px 8px;
+  border-radius: 8px;
+  transition: background .12s ease, border .12s ease;
+}
+.candidate-row:hover {
+  background: #f7fbff;
+}
+.avatar {
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  object-fit:cover;
+  border: 2px solid rgba(47,111,182,0.08);
+}
+
+/* name + meta */
+.c-name {
+  font-weight:600;
+  font-size: 18px;
+  color:#12263b;
+}
+.c-meta {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+/* radio on right */
+.radio-col {
+  margin-left:auto;
+}
+
+/* submit */
+.submit-btn {
+  background: linear-gradient(180deg,var(--brand-blue), var(--brand-blue-dark));
+  border: none;
+  color: white;
+  font-weight:700;
+  border-radius: 10px;
+  padding: 12px 20px;
+  width:100%;
+  box-shadow: 0 6px 18px rgba(47,111,182,0.18);
+}
+
+.summary-list {
+  background:#fff;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #eef2f6;
+}
